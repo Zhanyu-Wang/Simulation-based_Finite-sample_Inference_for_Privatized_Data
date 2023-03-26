@@ -41,7 +41,7 @@ for(package.i in list.of.packages){
 }
 
 # use doSNOW for parallel computing
-n.cores <- min(63, parallel::detectCores() - 1)
+n.cores <- min(124, parallel::detectCores() - 1)
 cl <- makeSOCKcluster(n.cores)
 registerDoSNOW(cl)
 
@@ -62,9 +62,8 @@ expit = function(x){
 ObjPertLog = function(ep,c,X,Y){
   n = length(Y)
   t = 1/4
-  c = max(c, t/(2*n)/(exp(ep)-1))
+  if(c < t/(2*n)/(exp(ep)-1)) stop()
   x_dim = dim(X)[2]-1
-  lambda = (1/4)*(x_dim+1)
   ep_new = ep - log(1+t/(2*n*c))
   
   sim_norm = rgamma(n=1, shape=x_dim+1, rate=ep_new/2)
@@ -72,10 +71,10 @@ ObjPertLog = function(ep,c,X,Y){
   b = sim_vector*sim_norm/sqrt(sum(sim_vector^2))
     
   obj = function(beta){
-    return((1/n)*sum(log(1+exp(-Y * X%*%beta)))   + (c/n)*sum(beta^2) + sum(b*beta)/n)
+    return((1/n)*sum(log(1+exp(-Y * X%*%beta)))   + (c)*sum(beta^2) + sum(b*beta)/n)
   }
   grad = function(beta){
-    return( -(1/n) * t(Y * expit(-Y * X%*%beta)) %*% X    + (2*c/n)*beta + b/n)
+    return( -(1/n) * t(Y * expit(-Y * X%*%beta)) %*% X    + (2*c)*beta + b/n)
   }
   min = optim(par = rep(0, x_dim+1), fn = obj, gr = grad, method = "BFGS")
   
@@ -130,7 +129,7 @@ for(ep in ep_list){
       x2 = 2*x-1
       U = runif(n,min=0,max=1)
       Y = (U<=expit(beta0+beta1*x2)) * 2 - 1
-      X = matrix(c(rep(1,n),x2),nrow=n,ncol=2)
+      X = matrix(c(rep(1/sqrt(2),n),x2/sqrt(2)),nrow=n,ncol=2) # to satisfy the condition ||x||_2 <= 1.
       
       q = 0.85
       t = 1/4
@@ -138,8 +137,8 @@ for(ep in ep_list){
       
       x_dim <- dim(X)[2]-1
       private_estimate = ObjPertLog(ep=ep1,c=c,X=X,Y=Y)
-      if(sum(private_estimate^2) > 200) private_estimate[2:(x_dim+2)] = rep(0, x_dim+1)
-      ep1_for_simulation = ep1 * q
+      if(sum(private_estimate^2) > 400) stop() # private_estimate[2:(x_dim+2)] = rep(0, x_dim+1)
+      ep1_for_simulation = private_estimate[1] # ep1 * q
       private_beta = private_estimate[2:3]
       
       new_matrix = X
@@ -171,6 +170,7 @@ for(ep in ep_list){
       sim_noise = (sim_G + sim_b / sqrt(n)) %*% solve(private_hessian) / sqrt(n)
       beta0_CI = private_beta[1] + quantile(sim_noise[,1], c(alpha/2, 1-alpha/2))
       beta1_CI = private_beta[2] + quantile(sim_noise[,2], c(alpha/2, 1-alpha/2))
+      beta1_CI = beta1_CI / sqrt(2)
       beta1_CI = pmax(-10, pmin(10, beta1_CI))
       CI = as.numeric(beta1_CI)
       time_elapsed = toc()
