@@ -1,6 +1,8 @@
 # Introduction
 
-The code is for the paper 'Simulation-based, Finite-sample Inference for Privatized Data'. We denote Repro Sample method as Repro, and parametric bootstrap as PB.
+The code is for the paper 'Simulation-based, Finite-sample Inference for Privatized Data' by Jordan Awan and Zhanyu Wang. https://arxiv.org/abs/2303.05328 
+
+We denote Repro Sample method as Repro, and parametric bootstrap as PB.
 
 # Run codes and draw figures
 *For those experiments taking longer time to run, e.g., Figure 4, we split their procedure into two steps and provide intermediate results saved in the folder `./results/`. To save time, one can skip the first step and use the second step to draw the figures.
