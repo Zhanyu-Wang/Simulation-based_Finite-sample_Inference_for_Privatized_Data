@@ -102,7 +102,7 @@ c(mean(width), sqrt(var(width)/reps))
 
 ### Parametric Bootstrap (percentile) for sigma (standard deviation)
 c(coverageS, sqrt(coverageS*(1-coverageS)/reps))
-c(mean(widthS), sqrt(var(widthS)))
+c(mean(widthS), sqrt(var(widthS)/reps))
 
 
 ### Parametric Bootstrap (simplified t) for mu (mean)
@@ -111,4 +111,4 @@ c(mean(width2), sqrt(var(width2)/reps))
 
 ### Parametric Bootstrap (simplified t) for sigma (standard deviation)
 c(coverageS2, sqrt(coverageS2*(1-coverageS2)/reps))
-c(mean(widthS2), sqrt(var(widthS2)))
+c(mean(widthS2), sqrt(var(widthS2)/reps))
