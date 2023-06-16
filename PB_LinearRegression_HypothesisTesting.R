@@ -212,7 +212,6 @@ for (ep in ep_list) {
         uy = matrix(rnorm(1*n),ncol=n,nrow=1)
         N = matrix(rnorm(1*5),ncol=5,nrow=1)
         s_dp = sdp_vec(ux,uy,N,Delta,theta,ep,n)
-        PB_accept(s_dp,beta1=0,Delta,ep,n,R)
         
         if(PB_accept(s_dp,beta1=0,Delta,ep,n,R))
           rejected = 0
