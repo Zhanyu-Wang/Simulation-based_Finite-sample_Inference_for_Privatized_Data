@@ -31,18 +31,18 @@ Please run `Repro_Normal_mu.R` and `Repro_Normal_sigma.R` in R to obtain the res
 
 2. Then run `Logistic_comparison.R` to generate the left subfigure of Figure 6 which is named as `logistic_width_comparison.pdf`, and for the right subfigure, please run the corresponding cells in `Heatmaps.ipynb` and obtain `logistic_coverage.pdf`.
 
-## Appendix Table 1: 95% confidence intervals for clamped exponential distribution with Laplace noise
+## Appendix Table 3: 95% confidence intervals for clamped exponential distribution with Laplace noise
 Please run `Inversion_Exponential.R` in R to obtain the results for the inversion method, and run `PB_Exponential.R` for PB.
 
-## Appendix Figure 1 and 2: Use Repro and PB for hypothesis testing on linear regression with different privacy constraints
+## Appendix Figure 7 and 8: Use Repro and PB for hypothesis testing on linear regression with different privacy constraints
 1. (If you haven't done this for Figure 4:) Please run `Repro_LinearRegression_HypothesisTesting.R` and `PB_LinearRegression_HypothesisTesting.R` to obtain the results, which will be used in Figure 4 and 5 and Appendix Figure 1 and 2.
 
 2. Please run the corresponding cells in `Heatmaps.ipynb` and obtain `Repro_LR_HT.pdf` and `PB_LR_HT.pdf`.
 
-## Appendix Figure 3: Sensitivity space 
+## Appendix Figure 9: Sensitivity space 
 Please run `SensitivityHull.R` in R. It will generate `sensitivityHull.pdf`.
 
-## Appendix Table 2: 95% confidence intervals for private Bernoullis with unknown n
+## Appendix Table 4: 95% confidence intervals for private Bernoullis with unknown n
 Please run `Repro_Binomial_Unbounded.R` in R for the results.
 
 ## License
