@@ -157,7 +157,7 @@ PB_accept = function(s_dp,beta1,Delta,ep,n,R){
   theta0 = theta_hat(s_dp,Delta,ep,n) # TODO: this only applies to beta1=0
 
   
-  thresh = ceiling(R*(1-alpha))
+  thresh = ceiling((R+1)*(1-alpha))
   
   ux = matrix(rnorm(R*n),ncol=n,nrow=R)
   uy = matrix(rnorm(R*n),ncol=n,nrow=R)
