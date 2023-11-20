@@ -120,7 +120,7 @@ getCI <- function(dp_statistic, data_randomness, privacy_noises, n) {
       dp_statistic = dp_statistic,
     )
     if(opt$value <= 0)
-      theta_m <- opt$par[1]
+      theta_m <- opt$par[2]
     else {
       print("failed to find a point in CI")
       break
