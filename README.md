@@ -1,61 +1,62 @@
 # Introduction
-
-The code is for the paper 'Simulation-based, Finite-sample Inference for Privatized Data' by Jordan Awan and Zhanyu Wang. https://arxiv.org/abs/2303.05328 
+The code is for the paper 'Simulation-based, Finite-sample Inference for Privatized Data' by Jordan Awan and Zhanyu Wang. https://arxiv.org/abs/2303.05328v4
 
 We denote Repro Sample method as Repro, and parametric bootstrap as PB.
 
 # Run codes and draw figures
-*For those experiments taking longer time to run, e.g., Figure 4, we split their procedure into two steps and provide intermediate results saved in the folder `./results/`. To save time, one can skip the first step and use the second step to draw the figures.
+*For those experiments taking longer time to run, e.g., Figure 5, we split their procedure into two steps and provide intermediate results saved in the folder `linear_logistic/results/`. To save time, one can skip the first step and use the second step to draw the figures.
+
+## Table 1: 95% confidence interval for Bernoulli
+Please run `table1/Repro_Binomial_bounded.R` for the Repro result, and `table1/Awan_binomialDP.R` for the result by Awan and Slavkovic (2020).
 
 ## Figure 2: 95% confidence set for location-scale normal
-Please run `Repro_Normal_DepthRegion.R` in R to obtain the four subfigures: `repro_normal_*.pdf` where `*` is `mahalanobis`, `halfspace`, `simplicial`, and `spatial`. 
+1. Please run `figure2/Repro_Normal_DepthRegion_GDP.R` in R to obtain the four subfigures: `*_100_1_region.pdf` where `*` is `mahalanobis`, `halfspace`, `simplicial`, and `spatial`. 
 
-## Figure 3: Poisson distribution
-Please run `Repro_Poisson.R` in R to obtain the two subfigures: `CIPoisson.pdf` and `widthPoisson.pdf`. 
+2. We also provide intermediate boundary results saved in `csv` files, and you can run `figure2/Repro_Normal_DepthRegion_GDP_draw.R` to draw the figures.
 
-## Table 1: Location-scale normal
-Please run `Repro_Normal_mu.R` and `Repro_Normal_sigma.R` in R to obtain the results of Repro, and run `PB_Normal.R` for the results of PB.
+## Figure 4: Poisson distribution
+Please run `figure3/Repro_Poisson.R` in R to obtain the two subfigures: `CIPoisson.pdf` and `widthPoisson.pdf`. 
 
-## Figure 4: Compare Repro with PB for hypothesis testing on the slope in linear regression with different levels of the true slope
-1. Please run `Repro_LinearRegression_HypothesisTesting.R` and `PB_LinearRegression_HypothesisTesting.R` to obtain the results which will be used in Figure 4 and 5 and Appendix Figure 1 and 2.
+## Table 2: Location-scale normal (compared to PB)
+Please run `table2/Repro_Normal_mu.R` and `table2/Repro_Normal_sigma.R` in R to obtain the results (saved in `csv` files) of Repro, and run `PB_Normal.R` for the results of PB.
 
-2. Please run the corresponding cells in `Heatmaps.ipynb` and obtain `LR_HT_gdp=1.pdf`.
+## Table 3: Location-scale normal (compared to Karwa and Vadhan)
+Please run `table3/Repro_Normal_mu_compareKarwaVadhan.R` for the results of repro, and `table3/Karwa_Vadhan.R` for the results by Karwa and Vadhan (2018).
 
-## Figure 5: Compare Repro with PB for hypothesis testing on the slope in linear regression with different clamping regions
-1. (If you haven't done this for Figure 4:) Please run `Repro_LinearRegression_HypothesisTesting.R` and `PB_LinearRegression_HypothesisTesting.R` to obtain the results, which will be used in Figure 4 and 5 and Appendix Figure 1 and 2.
+## Figure 5: Compare Repro with PB for hypothesis testing on the slope in linear regression with different levels of the true slope
+1. Please run `linear_logistic/Repro_LinearRegression_HypothesisTesting.R` and `linear_logistic/PB_LinearRegression_HypothesisTesting.R` to obtain the results which will be used in Figure 5 and 6 and Appendix Figure 1 and 2.
 
-2. Please run the corresponding cells in `Heatmaps.ipynb` and obtain `LR_HT_compareclamp.pdf`. 
+2. Please run the corresponding cells in `linear_logistic/Heatmaps.ipynb` and obtain `LR_HT_gdp=1.pdf`.
 
-## Figure 6: Compare Repro with DP-CI-ERM on the width and coverage for the confidence intervals of the coefficient in logistic regression
-1. Please run `Repro_Logistic.R` for the results of Repro, and `ERM_Logistic.R` for the results of DP-CI-ERM. Note that the `Repro_Logistic.R` may take longer time to run, and if it stops before it finishes, you can rerun it and it automatically continues to run since the intermediate results are saved in `./results/logistic/`. The final results will be saved in `./results/summary/`. 
+## Figure 6: Compare Repro with PB for hypothesis testing on the slope in linear regression with different clamping regions
+1. (If you haven't done this for Figure 5:) Please run `linear_logistic/Repro_LinearRegression_HypothesisTesting.R` and `linear_logistic/PB_LinearRegression_HypothesisTesting.R` to obtain the results, which will be used in Figure 5 and 6 and Appendix Figure 1 and 2.
 
-2. Then run `Logistic_comparison.R` to generate the left subfigure of Figure 6 which is named as `logistic_width_comparison.pdf`, and for the right subfigure, please run the corresponding cells in `Heatmaps.ipynb` and obtain `logistic_coverage.pdf`.
+2. Please run the corresponding cells in `linear_logistic/Heatmaps.ipynb` and obtain `LR_HT_compareclamp.pdf`. 
 
-## Appendix Table 3: 95% confidence intervals for clamped exponential distribution with Laplace noise
-Please run `Inversion_Exponential.R` in R to obtain the results for the inversion method, and run `PB_Exponential.R` for PB.
+## Figure 7: Compare Repro with DP-CI-ERM on the width and coverage for the confidence intervals of the coefficient in logistic regression
+1. Please run `linear_logistic/Repro_Logistic.R` for the results of Repro, and `linear_logistic/ERM_Logistic.R` for the results of DP-CI-ERM. Note that the `linear_logistic/Repro_Logistic.R` may take longer time to run, and if it stops before it finishes, you can rerun it and it automatically continues to run since the intermediate results are saved in `linear_logistic/results/logistic/`. The final results will be saved in `linear_logistic/results/summary/`. 
 
-## Appendix Figure 7 and 8: Use Repro and PB for hypothesis testing on linear regression with different privacy constraints
-1. (If you haven't done this for Figure 4:) Please run `Repro_LinearRegression_HypothesisTesting.R` and `PB_LinearRegression_HypothesisTesting.R` to obtain the results, which will be used in Figure 4 and 5 and Appendix Figure 1 and 2.
+2. Then run `linear_logistic/Logistic_comparison.R` to generate the left subfigure of Figure 7 which is named as `logistic_width_comparison.pdf`, and for the right subfigure, please run the corresponding cells in `linear_logistic/Heatmaps.ipynb` and obtain `logistic_coverage.pdf`.
 
-2. Please run the corresponding cells in `Heatmaps.ipynb` and obtain `Repro_LR_HT.pdf` and `PB_LR_HT.pdf`.
+## Appendix Table 1: 95% confidence intervals for clamped exponential distribution with Laplace noise
+Please run `appendix_table1/Inversion_Exponential.R` in R to obtain the results for the inversion method, `appendix_table1/Repro_Exponential.R` for repro, and `appendix_table1/PB_Exponential.R` for PB.
 
-## Appendix Figure 9: Sensitivity space 
-Please run `SensitivityHull.R` in R. It will generate `sensitivityHull.pdf`.
+## Appendix Figure 1 and 2: Use Repro and PB for hypothesis testing on linear regression with different privacy constraints
+1. (If you haven't done this for Figure 5:) Please run `linear_logistic/Repro_LinearRegression_HypothesisTesting.R` and `linear_logistic/PB_LinearRegression_HypothesisTesting.R` to obtain the results, which will be used in Figure 5 and 6 and Appendix Figure 1 and 2.
 
-## Appendix Table 4: 95% confidence intervals for private Bernoullis with unknown n
-Please run `Repro_Binomial_Unbounded.R` in R for the results.
+2. Please run the corresponding cells in `linear_logistic/Heatmaps.ipynb` and obtain `Repro_LR_HT.pdf` and `PB_LR_HT.pdf`.
 
-## License
-Copyright 2023 Jordan Awan and Zhanyu Wang
+## Appendix Figure 3: Sensitivity space 
+Please run `appendix_figure3/SensitivityHull.R` in R. It will generate `sensitivityHull.pdf`.
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+## Appendix Table 2: 95% confidence intervals for private Bernoullis with unknown n
+Please run `appendix_table2/Repro_Binomial_Unbounded.R` in R for the results.
 
-    http://www.apache.org/licenses/LICENSE-2.0
+## Appendix Table 3: Privatized Mann–Whitney test (ep-DP)
+Please run `appendix_table3/Repro.R` in R for the results of repro and `appendix_table3/Couch.R` for Couch et al. (2019). Please use `appendix_table3/Kazan.R` to tune the parameter for the best results by Kazan et al. (2023).
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
+## Appendix Table 4: Privatized Mann–Whitney test (ep-GDP)
+Please run `appendix_table4/Repro.R` in R for the results of repro and `appendix_table4/Couch.R` for Couch et al. (2019). Please use `appendix_table4/Kazan.R` to tune the parameter for the best results by Kazan et al. (2023).
+
+## Appendix Table 5: Privatized Mann–Whitney test (change R)
+Please run `appendix_table5/Repro_compare_R.R` in R for the results of repro.
