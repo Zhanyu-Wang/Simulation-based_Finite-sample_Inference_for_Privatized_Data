@@ -80,18 +80,18 @@ expit = function(x){
 
 
 ObjPertLog = function(ep,norm,q,X,Y,N){
-  m = dim(X)[2]-1
-  lambda = (1/4)*(m+1)
+  m = dim(X)[2]
+  lambda = (1/4)*(m)
   xi=1
-  b=rep(0,m+1)
+  b=rep(0,m)
   if(ep==0){
     Delta=0
   } else {
     if(norm==1){
-      xi = (m+1)*2
+      xi = (m)*2
     }
     if(norm==2){
-      xi = sqrt(m+1)*2
+      xi = sqrt(m)*2
     }
     if(norm==3){# 3 represents infinity.
       xi = 2
@@ -106,12 +106,12 @@ ObjPertLog = function(ep,norm,q,X,Y,N){
     return( -(1/n)*sum(Y*(X%*%beta) - log(1+exp(X%*%beta)))+Delta/(2*n)*sum(beta^2) + sum(b*beta)/n)
   }
   grad = function(beta){
-    logLike = (apply((X)*matrix(Y-exp(X%*%beta)/(1+exp(X%*%beta)),nrow=n,ncol=m+1),2,function(x) sum(x)))
+    logLike = (apply((X)*matrix(Y-exp(X%*%beta)/(1+exp(X%*%beta)),nrow=n,ncol=m),2,function(x) sum(x)))
     # 2 means cols
     return( -(1/n)*logLike    + (Delta/n)*beta + b/n)
   }
-  #min = optim(par = rep(0,m+1),fn=obj,gr = grad,method = "L-BFGS-B")
-  min = optim(par = rep(0,m+1),fn=obj,gr = grad,method = "BFGS")
+  #min = optim(par = rep(0,m),fn=obj,gr = grad,method = "L-BFGS-B")
+  min = optim(par = rep(0,m),fn=obj,gr = grad,method = "BFGS")
   
   if(min$convergence!=0){
     print("Obj-Pert did not converge") 
